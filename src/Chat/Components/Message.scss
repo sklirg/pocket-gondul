@@ -9,9 +9,9 @@
 
   @media (max-width: 978px) {
     grid-template-areas:
-      "time sender systems"
-      "message message message";
-    grid-template-columns: 2fr repeat(2, 1fr);
+      "message message message"
+      "sender time systems";
+    grid-template-columns: 1fr 2fr 1fr;
   }
 
   &--time {
@@ -30,7 +30,7 @@
     grid-area: message;
 
     @media (max-width: 978px) {
-      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
     }
   }
 }
