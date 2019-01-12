@@ -6,11 +6,14 @@ import { nb } from "date-fns/locale";
 
 import "./Message.scss";
 
-export interface IProps {
+export interface IMessage {
   time: Date;
   sender: string;
   systems: string[];
   message: string;
+}
+
+interface IProps extends IMessage {
   onClickSystem: (system: string) => void;
 }
 

@@ -1,4 +1,4 @@
-import { IProps as IMessage } from "./Components/Message";
+import { IMessage } from "./Components/Message";
 
 const messagesMock: IMessage[] = [
   {

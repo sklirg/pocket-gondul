@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import getMessages from "../MessageService";
 
-import Message, { IProps as IMessage } from "./Message";
+import Message, { IMessage } from "./Message";
 
 import "./Messages.scss";
 
