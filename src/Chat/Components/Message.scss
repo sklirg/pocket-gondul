@@ -1,4 +1,5 @@
 $smallFontSize: 0.875rem;
+$secondaryTextColor: darken(#ffffff, 30%);
 
 .message {
   margin-bottom: 1rem;
@@ -17,11 +18,13 @@ $smallFontSize: 0.875rem;
   &--time {
     grid-area: time;
     font-size: $smallFontSize;
+    color: $secondaryTextColor;
   }
 
   &--sender {
     grid-area: sender;
     font-size: $smallFontSize;
+    color: $secondaryTextColor;
   }
 
   &--systems {
