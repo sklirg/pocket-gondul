@@ -3,8 +3,6 @@ $smallFontSize: 0.875rem;
 .message {
   margin-bottom: 1rem;
 
-  color: hotpink;
-
   display: grid;
   grid-template-areas: "time sender systems message";
   grid-template-columns: 1fr repeat(2, 1fr) 1fr;
