@@ -11,6 +11,7 @@ export interface IProps {
   sender: string;
   systems: string[];
   message: string;
+  onClickSystem: (system: string) => void;
 }
 
 class Message extends React.PureComponent<IProps> {
@@ -23,8 +24,17 @@ class Message extends React.PureComponent<IProps> {
     return (
       <div className="message">
         <div className="message--time">{timestring}</div>
-        <div className="message--sender">{this.props.sender}</div>
-        <div className="message--systems">{this.props.systems.join(",")}</div>
+        <div className="message--sender">- {this.props.sender}</div>
+        <div className="message--systems">
+          {this.props.systems.map(system => (
+            <button
+              key={system}
+              onClick={() => this.props.onClickSystem(system)}
+            >
+              {system}
+            </button>
+          ))}
+        </div>
         <div className="message--message">{this.props.message}</div>
       </div>
     );
