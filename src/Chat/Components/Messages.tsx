@@ -17,7 +17,8 @@ export default function Messages(props: IProps) {
 
   const systems = props.messages
     .map(message => message.systems)
-    .reduce<string[]>((prev, current) => [...prev, ...current], []);
+    .reduce<string[]>((prev, current) => [...prev, ...current], [])
+    .sort();
 
   const filteredMessages =
     selectedSystem !== allSystemsValue
