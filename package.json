@@ -1,8 +1,8 @@
 {
-  "name": "moplog",
+  "name": "pocket-gondul",
   "version": "1.0.0",
   "description": "Mobile version of the gondul oplog",
-  "repository": "https://github.com/sklirg/moplog",
+  "repository": "https://github.com/sklirg/pocket-gondul",
   "author": "Håkon Solbjørg <hlsolbjorg@gmail.com>",
   "license": "MIT",
   "private": false,

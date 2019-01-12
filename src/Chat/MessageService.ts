@@ -37,7 +37,7 @@ async function fetchMessages(): Promise<IOPLogResponse> {
 }
 
 async function getMessages(): Promise<IMessage[]> {
-  if (process.env.MOPLOG_USE_MOCKED_MESSAGES) {
+  if (process.env.PG_USE_MOCKED_MESSAGES) {
     return Promise.resolve(mockedMessages);
   }
   return convertOplogResponseToMessages(await fetchMessages());

@@ -4,7 +4,7 @@ declare const process: {
     GONDUL_HOST: string;
     GONDUL_USER: string;
     GONDUL_PASS: string;
-    MOPLOG_USE_MOCKED_MESSAGES: boolean;
+    PG_USE_MOCKED_MESSAGES: boolean;
   };
 };
 
