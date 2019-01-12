@@ -13,7 +13,8 @@ function getActiveApp(appId: AppId) {
 }
 
 function MessagesApp() {
-  const [appId, setAppId]: [AppId, Dispatch<SetStateAction<AppId>>] = useState(
+  // @ts-ignore - _ usually means unused.
+  const [appId, _]: [AppId, Dispatch<SetStateAction<AppId>>] = useState(
     "OPLOG" as AppId
   );
 
