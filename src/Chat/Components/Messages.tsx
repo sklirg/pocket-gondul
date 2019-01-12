@@ -42,6 +42,11 @@ export default function Messages(props: IProps) {
             </option>
           ))}
         </select>
+        {selectedSystem !== allSystemsValue && (
+          <button onClick={() => setSelectedSystem(allSystemsValue)}>
+            Vis alle
+          </button>
+        )}
       </div>
       {filteredMessages.map((message, i) => (
         <Message
