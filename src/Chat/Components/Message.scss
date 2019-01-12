@@ -1,0 +1,36 @@
+.message {
+  margin-bottom: 1rem;
+
+  color: hotpink;
+
+  display: grid;
+  grid-template-areas: "time sender systems message";
+  grid-template-columns: 1fr repeat(2, 1fr) 1fr;
+
+  @media (max-width: 978px) {
+    grid-template-areas:
+      "time sender systems"
+      "message message message";
+    grid-template-columns: 2fr repeat(2, 1fr);
+  }
+
+  &--time {
+    grid-area: time;
+  }
+
+  &--sender {
+    grid-area: sender;
+  }
+
+  &--systems {
+    grid-area: systems;
+  }
+
+  &--message {
+    grid-area: message;
+
+    @media (max-width: 978px) {
+      margin-top: 0.5rem;
+    }
+  }
+}

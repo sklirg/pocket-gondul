@@ -1,0 +1,14 @@
+.messages {
+  &--select {
+    display: flex;
+    margin: 1rem 0;
+
+    > select {
+      border: 1px solid hotpink;
+    }
+
+    > * {
+      margin: 0.5rem;
+    }
+  }
+}
