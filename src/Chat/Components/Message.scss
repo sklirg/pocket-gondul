@@ -1,3 +1,5 @@
+$smallFontSize: 0.875rem;
+
 .message {
   margin-bottom: 1rem;
 
@@ -16,14 +18,21 @@
 
   &--time {
     grid-area: time;
+    font-size: $smallFontSize;
   }
 
   &--sender {
     grid-area: sender;
+    font-size: $smallFontSize;
   }
 
   &--systems {
     grid-area: systems;
+    font-size: $smallFontSize;
+
+    > button {
+      color: hotpink;
+    }
   }
 
   &--message {
