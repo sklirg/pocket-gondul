@@ -73,8 +73,8 @@ function AppConfig(props: IAppConfig) {
       <div>
         <label htmlFor="gondulApi">Gondul hostname</label>
         <input
-          value={gondul ? new URL(gondul).host : ""}
-          onChange={e => setGondul(`https://${e.target.value}`)}
+          value={gondul}
+          onChange={e => setGondul(e.target.value)}
           name="gondulApi"
           minLength={1}
         />
