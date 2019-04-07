@@ -6,7 +6,7 @@ $secondaryTextColor: darken(#ffffff, 30%);
 
   display: grid;
   grid-template-areas: "time sender systems message";
-  grid-template-columns: 1fr repeat(2, 1fr) 1fr;
+  grid-template-columns: 7.5rem repeat(2, 7.5rem) 1fr;
 
   @media (max-width: 978px) {
     grid-template-areas:

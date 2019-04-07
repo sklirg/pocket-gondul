@@ -4,13 +4,14 @@
   width: 100%;
   display: flex;
   flex-direction: column;
+  max-width: 32rem;
+  margin-right: auto;
 
   > div {
     display: flex;
     margin-bottom: 0.5rem;
     height: 2rem;
     font-size: 1.25rem;
-    // align-items: center;
 
     > input {
       margin-left: auto;
