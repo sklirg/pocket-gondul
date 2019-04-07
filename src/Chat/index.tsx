@@ -1,6 +1,8 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { hot } from "react-hot-loader";
 
+import AppConfig from "./AppConfig";
+import { ContextProvider, defaultClientConfig } from "./ClientConfig";
 import { MessagesContainer } from "./Components/Messages";
 
 type AppId = "OPLOG";
@@ -17,14 +19,24 @@ function MessagesApp() {
   const [appId, _]: [AppId, Dispatch<SetStateAction<AppId>>] = useState(
     "OPLOG" as AppId
   );
+  const [clientConfig, setClientConfig] = useState(defaultClientConfig);
+  const [showConfig, setShowConfig] = useState(false);
 
   const ActiveApp = getActiveApp(appId);
 
   return (
-    <>
-      <h1>{appId}</h1>
+    <ContextProvider value={clientConfig}>
+      <h1>
+        {appId} <span onClick={() => setShowConfig(!showConfig)}>🐵</span>
+      </h1>
+      {showConfig && (
+        <AppConfig
+          clientConfig={clientConfig}
+          setClientConfig={setClientConfig}
+        />
+      )}
       <ActiveApp />
-    </>
+    </ContextProvider>
   );
 }
 

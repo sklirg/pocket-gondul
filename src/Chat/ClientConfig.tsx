@@ -1,14 +1,16 @@
 import React from "react";
 
-interface IClientConfig {
+export interface IClientConfig {
   Gondul: string;
   Credentials: string;
 }
 
-const context = React.createContext<IClientConfig>({
+export const defaultClientConfig = {
   Credentials: btoa(`${process.env.GONDUL_USER}:${process.env.GONDUL_PASS}`),
   Gondul: process.env.GONDUL_HOST || "",
-});
+};
+
+const context = React.createContext<IClientConfig>(defaultClientConfig);
 
 export function withClientConfig<P extends object>(
   Component: React.ComponentType<P & IClientConfig>
@@ -27,3 +29,6 @@ export function withClientConfig<P extends object>(
     );
   };
 }
+
+export const ContextConsumer = context.Consumer;
+export const ContextProvider = context.Provider;
