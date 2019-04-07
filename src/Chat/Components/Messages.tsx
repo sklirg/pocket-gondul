@@ -70,13 +70,13 @@ export function MessagesContainer() {
   const [messages, setMessages] = useState([] as IMessage[]);
 
   useEffect(() => {
-    chatSubscription = setInterval(
+    chatSubscription = window.setInterval(
       async () => setMessages(await getMessages()),
       1000
     );
 
     return function cleanup() {
-      clearInterval(chatSubscription);
+      window.clearInterval(chatSubscription);
     };
   });
 
