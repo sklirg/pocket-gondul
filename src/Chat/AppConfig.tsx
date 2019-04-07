@@ -37,10 +37,11 @@ function AppConfig(props: IAppConfig) {
   const [user, setUser] = useState(
     atob(clientConfig.Credentials).split(":")[0]
   );
-
   const [pass, setPass] = useState(
     atob(clientConfig.Credentials).split(":")[1]
   );
+  const [reallyDelete, setReallyDelete] = useState(false);
+
   return (
     <form action="">
       <div>
@@ -88,10 +89,14 @@ function AppConfig(props: IAppConfig) {
       <button
         onClick={e => {
           e.preventDefault();
-          clearLocalStorage();
+          setReallyDelete(true);
+          if (reallyDelete) {
+            clearLocalStorage();
+            setReallyDelete(false);
+          }
         }}
       >
-        Slett lagret informasjon
+        {reallyDelete ? "Ja, jeg er sikker" : "Slett lagret informasjon"}
       </button>
     </form>
   );
