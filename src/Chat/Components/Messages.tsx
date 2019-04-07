@@ -55,7 +55,7 @@ export default function Messages(props: IProps) {
       </div>
       {filteredMessages.map((message, i) => (
         <Message
-          key={i.toString()}
+          key={i}
           {...message}
           onClickSystem={(system: string) => setSelectedSystem(system)}
         />
