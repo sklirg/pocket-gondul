@@ -7,9 +7,9 @@ export interface IClientConfig {
 }
 
 export const defaultClientConfig = {
+  ChatUsername: "",
   Credentials: btoa(`${process.env.GONDUL_USER}:${process.env.GONDUL_PASS}`),
   Gondul: process.env.GONDUL_HOST || "",
-  ChatUsername: "",
 };
 
 const context = React.createContext<IClientConfig>(defaultClientConfig);
