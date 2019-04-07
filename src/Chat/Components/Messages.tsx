@@ -17,6 +17,7 @@ const allSystemsValue = "Alle";
 
 export default function Messages(props: IProps) {
   const [selectedSystem, setSelectedSystem] = useState(allSystemsValue);
+  const [selectedTimeFilter, setTimeFilter] = useState(360);
   const [newMessage, setNewMessage] = useState("");
 
   const systems = [
@@ -29,12 +30,24 @@ export default function Messages(props: IProps) {
     ),
   ];
 
-  const filteredMessages =
-    selectedSystem !== allSystemsValue
-      ? props.messages.filter(
-          message => message.systems.indexOf(selectedSystem) !== -1
-        )
-      : props.messages;
+  const systemFilter = (message: IMessage) =>
+    message.systems.indexOf(selectedSystem) !== -1;
+  const timeFilter = (message: IMessage) =>
+    new Date().getTime() - message.time.getTime() <
+    selectedTimeFilter * 60 * 1000;
+  const filters = [];
+
+  if (selectedSystem !== allSystemsValue) {
+    filters.push(systemFilter);
+  }
+  if (selectedTimeFilter !== 0) {
+    filters.push(timeFilter);
+  }
+
+  const filteredMessages = filters.reduce<IMessage[]>(
+    (d, f) => d.filter(f),
+    props.messages
+  );
 
   return (
     <div className="messages">
@@ -51,8 +64,24 @@ export default function Messages(props: IProps) {
             </option>
           ))}
         </select>
-        {selectedSystem !== allSystemsValue && (
-          <button onClick={() => setSelectedSystem(allSystemsValue)}>
+        <select
+          value={selectedTimeFilter}
+          onChange={e => setTimeFilter(parseInt(e.target.value, 10))}
+        >
+          <option value={0}>All tid</option>
+          <option value={15}>15 min</option>
+          <option value={30}>30 min</option>
+          <option value={60}>1 time</option>
+          <option value={360}>6 timer</option>
+          <option value={1440}>24 timer</option>
+        </select>
+        {props.messages.length !== filteredMessages.length && (
+          <button
+            onClick={() => {
+              setSelectedSystem(allSystemsValue);
+              setTimeFilter(0);
+            }}
+          >
             Vis alle
           </button>
         )}
