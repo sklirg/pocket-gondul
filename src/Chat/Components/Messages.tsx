@@ -44,7 +44,7 @@ export default function Messages(props: IProps) {
           value={selectedSystem}
           onChange={event => setSelectedSystem(event.target.value)}
         >
-          <option value={allSystemsValue}>Alle</option>
+          <option value={allSystemsValue}>Alle systemer</option>
           {systems.map(system => (
             <option key={system} value={system}>
               {system}
