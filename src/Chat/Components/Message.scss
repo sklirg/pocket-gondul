@@ -38,6 +38,7 @@ $secondaryTextColor: darken(#ffffff, 30%);
 
   &--message {
     grid-area: message;
+    word-break: break-word;
 
     @media (max-width: 978px) {
       margin-bottom: 0.5rem;
