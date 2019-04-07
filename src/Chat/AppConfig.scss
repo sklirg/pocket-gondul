@@ -1,0 +1,32 @@
+.appconfig {
+  border-bottom: 1px solid hotpink;
+  padding-bottom: 1rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  > div {
+    display: flex;
+    margin-bottom: 0.5rem;
+    height: 2rem;
+    font-size: 1.25rem;
+    // align-items: center;
+
+    > input {
+      margin-left: auto;
+      border: none;
+      border-radius: 3px;
+      width: 50%;
+    }
+  }
+
+  &--submit {
+    justify-content: space-between;
+    margin: 1rem;
+
+    > button {
+      border: 1px solid;
+      border-radius: 1px;
+    }
+  }
+}

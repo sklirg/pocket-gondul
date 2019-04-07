@@ -1,6 +1,8 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { IClientConfig } from "./ClientConfig";
 
+import "./AppConfig.scss";
+
 interface IAppConfig {
   clientConfig: IClientConfig;
   setClientConfig: Dispatch<SetStateAction<IClientConfig>>;
@@ -55,6 +57,7 @@ function AppConfig(props: IAppConfig) {
 
   return (
     <form
+      className="appconfig"
       onSubmit={e => {
         e.preventDefault();
         const config = {
@@ -68,13 +71,14 @@ function AppConfig(props: IAppConfig) {
       }}
     >
       <div>
-        <label htmlFor="gondulApi">Gondul hostname (https://</label>
+        <label htmlFor="gondulApi">Gondul hostname</label>
         <input
           value={gondul ? new URL(gondul).host : ""}
           onChange={e => setGondul(`https://${e.target.value}`)}
           name="gondulApi"
+          pattern={"/(.[a-zA-Z0-9])/"}
+          minLength={1}
         />
-        <span>/api/)</span>
       </div>
       <div>
         <label htmlFor="gondulUser">Username</label>
@@ -102,19 +106,21 @@ function AppConfig(props: IAppConfig) {
           type="text"
         />
       </div>
-      <button type="submit">Lagre</button>
-      <button
-        onClick={e => {
-          e.preventDefault();
-          setReallyDelete(true);
-          if (reallyDelete) {
-            clearLocalStorage();
-            setReallyDelete(false);
-          }
-        }}
-      >
-        {reallyDelete ? "Ja, jeg er sikker" : "Slett lagret informasjon"}
-      </button>
+      <div className="appconfig--submit">
+        <button
+          onClick={e => {
+            e.preventDefault();
+            setReallyDelete(true);
+            if (reallyDelete) {
+              clearLocalStorage();
+              setReallyDelete(false);
+            }
+          }}
+        >
+          {reallyDelete ? "Ja, jeg er sikker" : "Slett lagret informasjon"}
+        </button>
+        <button type="submit">Lagre</button>
+      </div>
     </form>
   );
 }
