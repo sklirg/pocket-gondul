@@ -14,6 +14,7 @@
     "react-hot-loader": "^4.6.3"
   },
   "scripts": {
+    "build": "webpack --config webpack.config.js --mode production",
     "lint": "yarn run prettier & yarn run stylelint & yarn run tslint",
     "lint:fix": "yarn run prettier:fix & yarn run stylelint:fix & yarn run tslint:fix",
     "prettier": "prettier -l \"src/**/*.{ts,tsx,scss}\"",

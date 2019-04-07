@@ -89,6 +89,9 @@ module.exports = {
             title: "Pocket Gondul",
             template: "./src/index.html",
         }),
+        new MiniCssExtractPlugin({
+          filename: `styles/[name].css`
+        }),
         new CheckerPlugin(),
         new webpack.HotModuleReplacementPlugin(),
     ],
