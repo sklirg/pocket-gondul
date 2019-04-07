@@ -76,7 +76,6 @@ function AppConfig(props: IAppConfig) {
           value={gondul ? new URL(gondul).host : ""}
           onChange={e => setGondul(`https://${e.target.value}`)}
           name="gondulApi"
-          pattern={"/(.[a-zA-Z0-9])/"}
           minLength={1}
         />
       </div>
