@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { withClientConfig } from "../ClientConfig";
-import getMessages from "../MessageService";
+import getMessages, { postMessage } from "../MessageService";
 
 import Message, { IMessage } from "./Message";
 
@@ -10,12 +10,14 @@ import "./Messages.scss";
 interface IProps {
   messages: IMessage[];
   chatUsername: string;
+  postMessageHandler: (message: IMessage) => void;
 }
 
 const allSystemsValue = "Alle";
 
 export default function Messages(props: IProps) {
   const [selectedSystem, setSelectedSystem] = useState(allSystemsValue);
+  const [newMessage, setNewMessage] = useState("");
 
   const systems = [
     ...new Set(
@@ -62,6 +64,38 @@ export default function Messages(props: IProps) {
           onClickSystem={(system: string) => setSelectedSystem(system)}
         />
       ))}
+      <form
+        className="messages--post"
+        onSubmit={e => {
+          e.preventDefault();
+          props.postMessageHandler({
+            message: newMessage,
+            sender: props.chatUsername,
+            systems: [],
+            time: new Date(),
+          });
+          setNewMessage("");
+        }}
+      >
+        <input
+          className="messages--post--nick"
+          placeholder="Nick"
+          value={props.chatUsername}
+          required={true}
+          readOnly={true}
+          disabled={true}
+        />
+        <input
+          className="messages--post--text"
+          placeholder="Din melding her..."
+          value={newMessage}
+          required={true}
+          onChange={e => setNewMessage(e.target.value)}
+        />
+        <button type="submit" className="messages--post--submit">
+          Send
+        </button>
+      </form>
     </div>
   );
 }
@@ -85,5 +119,13 @@ export const MessagesContainer = withClientConfig(props => {
     };
   });
 
-  return <Messages messages={messages} />;
+  return (
+    <Messages
+      messages={messages}
+      chatUsername={props.ChatUsername}
+      postMessageHandler={(message: IMessage) =>
+        postMessage(Gondul, Credentials, message)
+      }
+    />
+  );
 });

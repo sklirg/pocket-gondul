@@ -55,4 +55,26 @@ export function convertOplogResponseToMessages(
   }));
 }
 
+export async function postMessage(
+  api: string,
+  credentials: string,
+  message: IMessage
+) {
+  const resp = await fetch(`${api}/api/write/oplog`, {
+    body: JSON.stringify({
+      log: message.message,
+      systems: message.systems.join(","),
+      user: message.sender,
+    }),
+    headers: {
+      Authorization: `Basic ${credentials}`,
+    },
+    method: "POST",
+  });
+
+  if (!resp.ok) {
+    console.error("Posting message failed", resp);
+  }
+}
+
 export default getMessages;
