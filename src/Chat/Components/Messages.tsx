@@ -109,10 +109,12 @@ export const MessagesContainer = withClientConfig(props => {
   const [messages, setMessages] = useState([] as IMessage[]);
 
   useEffect(() => {
-    chatSubscription = window.setInterval(
-      async () => setMessages(await getMessages(Gondul, Credentials)),
-      1000
-    );
+    chatSubscription = window.setInterval(async () => {
+      const fetchedMessages = await getMessages(Gondul, Credentials);
+      if (fetchedMessages.length !== messages.length) {
+        setMessages(fetchedMessages);
+      }
+    }, 1000);
 
     return function cleanup() {
       window.clearInterval(chatSubscription);
