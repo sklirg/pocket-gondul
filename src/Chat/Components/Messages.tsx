@@ -15,10 +15,15 @@ const allSystemsValue = "Alle";
 export default function Messages(props: IProps) {
   const [selectedSystem, setSelectedSystem] = useState(allSystemsValue);
 
-  const systems = props.messages
-    .map(message => message.systems)
-    .reduce<string[]>((prev, current) => [...prev, ...current], [])
-    .sort();
+  const systems = [
+    ...new Set(
+      props.messages
+        .map(message => message.systems)
+        .reduce<string[]>((prev, current) => [...prev, ...current], [])
+        .filter(system => system !== "")
+        .sort()
+    ),
+  ];
 
   const filteredMessages =
     selectedSystem !== allSystemsValue
