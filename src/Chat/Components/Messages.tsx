@@ -9,6 +9,7 @@ import "./Messages.scss";
 
 interface IProps {
   messages: IMessage[];
+  chatUsername: string;
 }
 
 const allSystemsValue = "Alle";

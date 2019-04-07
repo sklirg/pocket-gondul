@@ -8,13 +8,18 @@ interface IAppConfig {
 
 const localStorageGondulAPI = "pg-gondul";
 const localStorageGondulCredentials = "pg-gondul-credentials";
+const localStorageGondulChatUserName = "pg-gondul-chat-username";
 
 export function getFromLocalStorage(): IClientConfig {
   const gondul = window.localStorage.getItem(localStorageGondulAPI);
   const credentials = window.localStorage.getItem(
     localStorageGondulCredentials
   );
+  const chatUsername = window.localStorage.getItem(
+    localStorageGondulChatUserName
+  );
   return {
+    ChatUsername: chatUsername || "",
     Credentials: credentials || "",
     Gondul: gondul || "",
   };
@@ -25,10 +30,15 @@ function setLocalStorage(clientConfig: IClientConfig) {
     localStorageGondulCredentials,
     clientConfig.Credentials
   );
+  window.localStorage.setItem(
+    localStorageGondulChatUserName,
+    clientConfig.ChatUsername
+  );
 }
 function clearLocalStorage() {
   window.localStorage.setItem(localStorageGondulAPI, "");
   window.localStorage.setItem(localStorageGondulCredentials, "");
+  window.localStorage.setItem(localStorageGondulChatUserName, "");
 }
 
 function AppConfig(props: IAppConfig) {
@@ -40,10 +50,23 @@ function AppConfig(props: IAppConfig) {
   const [pass, setPass] = useState(
     atob(clientConfig.Credentials).split(":")[1]
   );
+  const [chatUsername, setChatUsername] = useState(clientConfig.ChatUsername);
   const [reallyDelete, setReallyDelete] = useState(false);
 
   return (
-    <form action="">
+    <form
+      onSubmit={e => {
+        e.preventDefault();
+        const config = {
+          ChatUsername: chatUsername,
+          Credentials:
+            user && pass ? btoa(`${user}:${pass}`) : clientConfig.Credentials,
+          Gondul: gondul ? gondul : clientConfig.Gondul,
+        };
+        setClientConfig(config);
+        setLocalStorage(config);
+      }}
+    >
       <div>
         <label htmlFor="gondulApi">Gondul hostname (https://</label>
         <input
@@ -70,22 +93,16 @@ function AppConfig(props: IAppConfig) {
           type="password"
         />
       </div>
-      <button
-        type="submit"
-        onClick={e => {
-          e.preventDefault();
-          const config = {
-            ...clientConfig,
-            Credentials:
-              user && pass ? btoa(`${user}:${pass}`) : clientConfig.Credentials,
-            Gondul: gondul ? gondul : clientConfig.Gondul,
-          };
-          setClientConfig(config);
-          setLocalStorage(config);
-        }}
-      >
-        Lagre
-      </button>
+      <div>
+        <label htmlFor="gondulChat">Chat username</label>
+        <input
+          value={chatUsername}
+          onChange={e => setChatUsername(e.target.value)}
+          name="gondulChat"
+          type="text"
+        />
+      </div>
+      <button type="submit">Lagre</button>
       <button
         onClick={e => {
           e.preventDefault();
