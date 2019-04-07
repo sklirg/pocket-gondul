@@ -27,16 +27,18 @@
 
     &--nick {
       width: 3rem;
-      margin-right: 1rem;
     }
 
     &--text {
       flex-grow: 1;
+      margin: 0 0.5rem;
     }
 
     &--submit {
       width: 5rem;
       margin-left: auto;
+      border: 1px solid;
+      border-radius: 1px;
     }
   }
 }
