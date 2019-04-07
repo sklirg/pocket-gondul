@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 
+import { withClientConfig } from "../ClientConfig";
 import getMessages from "../MessageService";
 
 import Message, { IMessage } from "./Message";
@@ -66,12 +67,15 @@ export default function Messages(props: IProps) {
 
 let chatSubscription: number = 0;
 
-export function MessagesContainer() {
+export const MessagesContainer = withClientConfig(props => {
+  const Credentials = props.Credentials;
+  const Gondul = props.Gondul;
+
   const [messages, setMessages] = useState([] as IMessage[]);
 
   useEffect(() => {
     chatSubscription = window.setInterval(
-      async () => setMessages(await getMessages()),
+      async () => setMessages(await getMessages(Gondul, Credentials)),
       1000
     );
 
@@ -81,4 +85,4 @@ export function MessagesContainer() {
   });
 
   return <Messages messages={messages} />;
-}
+});

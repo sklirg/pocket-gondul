@@ -2,10 +2,6 @@ import { IMessage } from "./Components/Message";
 
 import mockedMessages from "./MessagesMock";
 
-const GONDUL_HOST = process.env.GONDUL_HOST;
-const user = process.env.GONDUL_USER;
-const pass = process.env.GONDUL_PASS;
-
 export interface IOPLogEntry {
   log: string;
   timestamp: string;
@@ -19,11 +15,13 @@ export interface IOPLogResponse {
   oplog: IOPLogEntry[];
 }
 
-async function fetchMessages(): Promise<IOPLogResponse> {
-  const b64auth = btoa(`${user}:${pass}`);
-  const resp = await fetch(`${GONDUL_HOST}/api/read/oplog`, {
+async function fetchMessages(
+  api: string,
+  credentials: string
+): Promise<IOPLogResponse> {
+  const resp = await fetch(`${api}/api/read/oplog`, {
     headers: {
-      Authorization: `Basic ${b64auth}`,
+      Authorization: `Basic ${credentials}`,
     },
   });
 
@@ -36,11 +34,14 @@ async function fetchMessages(): Promise<IOPLogResponse> {
   return Promise.reject("Fetching messages failed.");
 }
 
-async function getMessages(): Promise<IMessage[]> {
+async function getMessages(
+  api: string,
+  credentials: string
+): Promise<IMessage[]> {
   if (process.env.PG_USE_MOCKED_MESSAGES === "true") {
     return Promise.resolve(mockedMessages);
   }
-  return convertOplogResponseToMessages(await fetchMessages());
+  return convertOplogResponseToMessages(await fetchMessages(api, credentials));
 }
 
 export function convertOplogResponseToMessages(
