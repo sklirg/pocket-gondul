@@ -9,8 +9,8 @@
   "dependencies": {
     "@babel/preset-typescript": "^7.1.0",
     "date-fns": "^2.0.0-alpha.25",
-    "react": "^16.8.0-alpha.0",
-    "react-dom": "^16.8.0-alpha.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.0",
     "react-hot-loader": "^4.6.3"
   },
   "scripts": {
