@@ -107,6 +107,7 @@ function AppConfig(props: IAppConfig) {
       </div>
       <div className="appconfig--submit">
         <button
+          type="button"
           onClick={e => {
             e.preventDefault();
             setReallyDelete(true);
