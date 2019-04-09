@@ -3,6 +3,7 @@ $secondaryTextColor: darken(#ffffff, 30%);
 
 .message {
   margin-bottom: 1rem;
+  font-size: 1rem;
 
   display: grid;
   grid-template-areas: "time sender systems message";
