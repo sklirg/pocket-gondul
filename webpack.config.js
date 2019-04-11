@@ -96,7 +96,7 @@ module.exports = {
             template: "./src/index.html",
         }),
         new MiniCssExtractPlugin({
-          filename: `styles/[name].css`
+          filename: `[name].css`
         }),
         new CheckerPlugin(),
         new webpack.HotModuleReplacementPlugin(),
