@@ -1,8 +1,9 @@
 import React from "react";
 
-import { format } from "date-fns";
 // tslint:disable-next-line:no-submodule-imports - Problem with esm in date-fns.
-import { nb } from "date-fns/locale";
+import format from "date-fns/format";
+// tslint:disable-next-line:no-submodule-imports - Problem with esm in date-fns.
+import nb from "date-fns/locale/nb/index.js";
 
 import "./Message.scss";
 
