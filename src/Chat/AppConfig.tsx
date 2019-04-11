@@ -71,7 +71,7 @@ function AppConfig(props: IAppConfig) {
       }}
     >
       <div>
-        <label htmlFor="gondulApi">Gondul hostname</label>
+        <label htmlFor="gondulApi">Gondul HTTP host</label>
         <input
           value={gondul}
           onChange={e => setGondul(e.target.value)}
