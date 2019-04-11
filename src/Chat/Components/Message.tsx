@@ -13,6 +13,8 @@ export interface IMessage {
   message: string;
 }
 
+export const errorMessagePrefix = "PG-ERR";
+
 interface IProps extends IMessage {
   onClickSystem: (system: string) => void;
 }
@@ -38,7 +40,9 @@ class Message extends React.PureComponent<IProps> {
             </button>
           ))}
         </div>
-        <div className="message--message">{this.props.message}</div>
+        <div className="message--message">
+          {this.props.message.replace(errorMessagePrefix, "")}
+        </div>
       </div>
     );
   }

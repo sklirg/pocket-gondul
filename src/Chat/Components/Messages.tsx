@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { withClientConfig } from "../ClientConfig";
 import getMessages, { postMessage } from "../MessageService";
 
-import Message, { IMessage } from "./Message";
+import Message, { errorMessagePrefix, IMessage } from "./Message";
 
 import "./Messages.scss";
 
@@ -120,16 +120,9 @@ export const MessagesContainer = withClientConfig(props => {
   }
 
   useEffect(() => {
-    chatSubscription = window.setInterval(async () => {
-      const fetchedMessages = await getMessages(Gondul, Credentials);
-      if (
-        fetchedMessages.length !== messages.length ||
-        (messages.length === 1 &&
-          messages.find(msg => msg.message === hasntFetchedMsg))
-      ) {
-        setMessages(fetchedMessages);
-        hasFetchedMsgs = true;
-      }
+    chatSubscription = window.setInterval(() => {
+      updateMessagesState(messages, Gondul, Credentials, setMessages);
+      hasFetchedMsgs = true;
     }, 1000);
 
     return function cleanup() {
@@ -147,3 +140,38 @@ export const MessagesContainer = withClientConfig(props => {
     />
   );
 });
+
+async function updateMessagesState(
+  messages: IMessage[],
+  api: string,
+  credentials: string,
+  setMessages: React.Dispatch<React.SetStateAction<IMessage[]>>
+) {
+  try {
+    const fetchedMessages = (await getMessages(api, credentials)) as IMessage[];
+
+    if (fetchedMessages.length !== messages.length) {
+      setMessages(fetchedMessages);
+    }
+  } catch (err) {
+    if (!messages.find(msg => msg.message.indexOf(errorMessagePrefix) !== -1)) {
+      setMessages([
+        {
+          message: `${errorMessagePrefix}Error: ${err}`,
+          sender: "Pocket-Gondul",
+          systems: [],
+          time: new Date(),
+        },
+        ...messages,
+      ]);
+    } else {
+      setMessages([
+        ...messages.map(msg =>
+          msg.message.indexOf(errorMessagePrefix) !== -1
+            ? { ...msg, time: new Date() }
+            : msg
+        ),
+      ]);
+    }
+  }
+}

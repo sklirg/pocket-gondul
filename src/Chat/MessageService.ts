@@ -40,7 +40,7 @@ async function fetchMessages(
 async function getMessages(
   api: string,
   credentials: string
-): Promise<IMessage[]> {
+): Promise<IMessage[] | Error> {
   if (process.env.PG_USE_MOCKED_MESSAGES === "true") {
     return Promise.resolve(mockedMessages);
   }
@@ -50,23 +50,7 @@ async function getMessages(
       await fetchMessages(api, credentials)
     );
   } catch (error) {
-    return [
-      {
-        message:
-          api.length === 0
-            ? "Trykk på apekatten for å confe appen"
-            : `Fetching messages from '${api}' failed.`,
-        sender: "Pocket-Gondul",
-        systems: [],
-        time: new Date(),
-      },
-      {
-        message: `Feilmelding: ${error}`,
-        sender: "Pocket-Gondul",
-        systems: [],
-        time: new Date(new Date().getTime() - 1000),
-      },
-    ];
+    throw error;
   }
 }
 
