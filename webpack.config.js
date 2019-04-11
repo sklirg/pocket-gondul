@@ -13,6 +13,7 @@ const env = devMode ? 'development' : 'production';
 
 const devServerConfig = {
     host,
+    hot: true,
     inline: true,
 }
 
