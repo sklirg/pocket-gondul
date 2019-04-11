@@ -21,8 +21,7 @@ interface IProps extends IMessage {
 
 class Message extends React.PureComponent<IProps> {
   public render() {
-    const timestring = format(this.props.time, "YY-MM-dd HH:mm:ss", {
-      awareOfUnicodeTokens: true,
+    const timestring = format(this.props.time, "yyyy-MM-dd HH:mm:ss", {
       locale: nb,
     });
 
