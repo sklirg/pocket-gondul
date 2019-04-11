@@ -1,0 +1,33 @@
+.post-message {
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  width: calc(100vw - 1rem);
+  background-color: #212121;
+  border-top: 1px solid hotpink;
+  padding-top: 0.75rem;
+  padding-bottom: 1rem;
+  height: 1.75rem;
+  font-size: 1rem;
+
+  button,
+  input {
+    font-size: 1rem;
+  }
+
+  &--nick {
+    width: 3rem;
+  }
+
+  &--text {
+    flex-grow: 1;
+    margin: 0 0.5rem;
+  }
+
+  &--submit {
+    width: 6rem;
+    margin-left: auto;
+    border: 1px solid;
+    border-radius: 1px;
+  }
+}

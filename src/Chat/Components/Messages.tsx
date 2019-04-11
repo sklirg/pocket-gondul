@@ -4,20 +4,20 @@ import { withClientConfig } from "../ClientConfig";
 import getMessages, { postMessage } from "../MessageService";
 
 import Message, { errorMessagePrefix, IMessage } from "./Message";
+import SendMessage from "./SendMessage";
 
 import "./Messages.scss";
 
 interface IProps {
   messages: IMessage[];
   chatUsername: string;
-  postMessageHandler: (message: IMessage) => void;
+  postMessageHandler: (message: IMessage) => Promise<boolean>;
 }
 
 const allSystemsValue = "Alle";
 
 export default function Messages(props: IProps) {
   const [selectedSystem, setSelectedSystem] = useState(allSystemsValue);
-  const [newMessage, setNewMessage] = useState("");
 
   const systems = [
     ...new Set(
@@ -64,38 +64,12 @@ export default function Messages(props: IProps) {
           onClickSystem={(system: string) => setSelectedSystem(system)}
         />
       ))}
-      <form
-        className="messages--post"
-        onSubmit={e => {
-          e.preventDefault();
-          props.postMessageHandler({
-            message: newMessage,
-            sender: props.chatUsername,
-            systems: [],
-            time: new Date(),
-          });
-          setNewMessage("");
-        }}
-      >
-        <input
-          className="messages--post--nick"
-          placeholder="Nick"
-          value={props.chatUsername}
-          required={true}
-          readOnly={true}
-          disabled={true}
-        />
-        <input
-          className="messages--post--text"
-          placeholder="Din melding her..."
-          value={newMessage}
-          required={true}
-          onChange={e => setNewMessage(e.target.value)}
-        />
-        <button type="submit" className="messages--post--submit">
-          Send
-        </button>
-      </form>
+      <SendMessage
+        username={props.chatUsername}
+        postMessageHandler={(message: IMessage) =>
+          props.postMessageHandler(message)
+        }
+      />
     </div>
   );
 }

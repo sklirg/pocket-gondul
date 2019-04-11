@@ -69,21 +69,28 @@ export async function postMessage(
   api: string,
   credentials: string,
   message: IMessage
-) {
-  const resp = await fetch(`${api}/api/write/oplog`, {
-    body: JSON.stringify({
-      log: message.message,
-      systems: message.systems.join(","),
-      user: message.sender,
-    }),
-    headers: {
-      Authorization: `Basic ${credentials}`,
-    },
-    method: "POST",
-  });
+): Promise<boolean> {
+  try {
+    const resp = await fetch(`${api}/api/write/oplog`, {
+      body: JSON.stringify({
+        log: message.message,
+        systems: message.systems.join(","),
+        user: message.sender,
+      }),
+      headers: {
+        Authorization: `Basic ${credentials}`,
+      },
+      method: "POST",
+    });
 
-  if (!resp.ok) {
-    console.error("Posting message failed", resp);
+    if (!resp.ok) {
+      console.error("Posting message failed", resp);
+      return Promise.reject(false);
+    }
+    return Promise.resolve(true);
+  } catch (err) {
+    console.error("Posting message failed", err);
+    return Promise.reject(false);
   }
 }
 
