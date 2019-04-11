@@ -19,19 +19,22 @@ async function fetchMessages(
   api: string,
   credentials: string
 ): Promise<IOPLogResponse> {
-  const resp = await fetch(`${api}/api/read/oplog`, {
-    headers: {
-      Authorization: `Basic ${credentials}`,
-    },
-  });
+  try {
+    const resp = await fetch(`${api}/api/read/oplog`, {
+      headers: {
+        Authorization: `Basic ${credentials}`,
+      },
+    });
 
-  if (resp.ok) {
-    // @ToDo: Add error handling
-    const jsoned = (await resp.json()) as IOPLogResponse;
-    return Promise.resolve(jsoned);
+    if (resp.ok) {
+      const jsoned = (await resp.json()) as IOPLogResponse;
+      return Promise.resolve(jsoned);
+    }
+
+    return Promise.reject("Fetching messages failed.");
+  } catch (err) {
+    return Promise.reject(err);
   }
-
-  return Promise.reject("Fetching messages failed.");
 }
 
 async function getMessages(
@@ -41,7 +44,30 @@ async function getMessages(
   if (process.env.PG_USE_MOCKED_MESSAGES === "true") {
     return Promise.resolve(mockedMessages);
   }
-  return convertOplogResponseToMessages(await fetchMessages(api, credentials));
+
+  try {
+    return convertOplogResponseToMessages(
+      await fetchMessages(api, credentials)
+    );
+  } catch (error) {
+    return [
+      {
+        message:
+          api.length === 0
+            ? "Trykk på apekatten for å confe appen"
+            : `Fetching messages from '${api}' failed.`,
+        sender: "Pocket-Gondul",
+        systems: [],
+        time: new Date(),
+      },
+      {
+        message: `Feilmelding: ${error}`,
+        sender: "Pocket-Gondul",
+        systems: [],
+        time: new Date(new Date().getTime() - 1000),
+      },
+    ];
+  }
 }
 
 export function convertOplogResponseToMessages(

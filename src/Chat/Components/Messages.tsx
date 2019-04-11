@@ -108,11 +108,27 @@ export const MessagesContainer = withClientConfig(props => {
 
   const [messages, setMessages] = useState([] as IMessage[]);
 
+  const hasntFetchedMsg = "Har ikke hentet noen meldinger enda";
+  let hasFetchedMsgs = false;
+  if (messages.length === 0 && !hasFetchedMsgs) {
+    messages.push({
+      message: hasntFetchedMsg,
+      sender: "Pocket-Gondul",
+      systems: [],
+      time: new Date(),
+    });
+  }
+
   useEffect(() => {
     chatSubscription = window.setInterval(async () => {
       const fetchedMessages = await getMessages(Gondul, Credentials);
-      if (fetchedMessages.length !== messages.length) {
+      if (
+        fetchedMessages.length !== messages.length ||
+        (messages.length === 1 &&
+          messages.find(msg => msg.message === hasntFetchedMsg))
+      ) {
         setMessages(fetchedMessages);
+        hasFetchedMsgs = true;
       }
     }, 1000);
 
