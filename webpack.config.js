@@ -6,6 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const host = process.env.PG_WP_HOST && process.env.PG_WP_HOST !== '' ? process.env.PG_WP_HOST : '127.0.0.1';
 const port = process.env.PG_WP_PORT && process.env.PG_WP_PORT !== '' ? process.env.PG_WP_PORT : '8080';
+const publicPath = process.env.PG_PUBLIC_PATH || '';
 
 const devMode = process.env.NODE_ENV === 'development';
 const env = devMode ? 'development' : 'production';
@@ -26,7 +27,8 @@ module.exports = {
     output: {
         path: path.resolve('dist/'),
         filename: '[name].bundle.js',
-        chunkFilename: '[name].bundle.js'
+        chunkFilename: '[name].bundle.js',
+        publicPath,
     },
     module: {
         rules: [
