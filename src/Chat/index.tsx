@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
-import { hot } from 'react-hot-loader/root.js'
+import { hot } from "react-hot-loader/root.js";
 
 import AppConfig, { getFromLocalStorage } from "./AppConfig";
 import { ContextProvider } from "./ClientConfig";
