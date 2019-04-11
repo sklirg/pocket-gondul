@@ -12,7 +12,6 @@ const env = devMode ? 'development' : 'production';
 
 const devServerConfig = {
     host,
-    hot: true,
     inline: true,
 }
 
@@ -38,6 +37,11 @@ module.exports = {
                 resolve: {
                     extensions: ['.js', '.jsx'],
                 },
+            },
+            {
+              test: /\.jsx?$/,
+              include: /node_modules/,
+              use: ['react-hot-loader/webpack'],
             },
             {
                 test: /\.tsx?$/,

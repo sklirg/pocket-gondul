@@ -8,6 +8,7 @@
     "jsRules": {},
     "rulesDirectory": [],
     "rules": {
-        "jsx-no-lambda": false
+        "jsx-no-lambda": false,
+        "no-submodule-imports": [true, "react-hot-loader/root.js"]
     }
 }
