@@ -5,6 +5,8 @@ import AppConfig, { getFromLocalStorage } from "./AppConfig";
 import { ContextProvider } from "./ClientConfig";
 import { MessagesContainer } from "./Components/Messages";
 
+import "./styles.scss";
+
 type AppId = "OPLOG";
 
 function getActiveApp(appId: AppId) {
@@ -36,6 +38,14 @@ function MessagesApp() {
         />
       )}
       <ActiveApp />
+      <div className="scroll-top--container">
+        <button
+          className="scroll-top--element"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        >
+          🔝
+        </button>
+      </div>
     </ContextProvider>
   );
 }

@@ -1,0 +1,17 @@
+.scroll-top {
+  &--container {
+    width: 100%;
+    position: fixed;
+    bottom: 4rem;
+    display: flex;
+  }
+  &--element {
+    position: sticky;
+    margin-left: auto;
+    margin-right: 1rem;
+    font-size: 1.75rem;
+    padding: 0;
+    border: 1px solid hotpink;
+    background-color: #222222;
+  }
+}
