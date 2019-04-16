@@ -60,7 +60,7 @@ export function convertOplogResponseToMessages(
   return data.oplog.map(entry => ({
     message: entry.log,
     sender: entry.username,
-    systems: entry.systems.split(",").map(system => system.replace(/"/g, "")),
+    systems: entry.systems.split("|").map(system => system.replace(/"/g, "")),
     time: new Date(entry.timestamp),
   }));
 }
