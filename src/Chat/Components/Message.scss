@@ -35,6 +35,8 @@ $secondaryTextColor: darken(#ffffff, 30%);
     > button,
     select {
       color: hotpink;
+      background-color: transparent;
+      border: none;
     }
   }
 
