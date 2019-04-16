@@ -65,6 +65,14 @@ export function convertOplogResponseToMessages(
   }));
 }
 
+/**
+ * Backend expects this format:
+ * {"user":"sklirg","systems":"","log":"tester json format"}
+ * {"user":"sklirg","systems":"","log":"msg"}
+ * @param api Gondul API
+ * @param credentials B64-encoded credentials for the API
+ * @param message ... Does this really need documentation?
+ */
 export async function postMessage(
   api: string,
   credentials: string,
