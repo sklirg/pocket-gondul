@@ -32,7 +32,8 @@ $secondaryTextColor: darken(#ffffff, 30%);
     grid-area: systems;
     font-size: $smallFontSize;
 
-    > button {
+    > button,
+    select {
       color: hotpink;
     }
   }
