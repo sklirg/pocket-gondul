@@ -79,6 +79,7 @@ let chatSubscription: number = 0;
 export const MessagesContainer = withClientConfig(props => {
   const Credentials = props.Credentials;
   const Gondul = props.Gondul;
+  const updateFrequency = props.UpdateFrequency;
 
   const [messages, setMessages] = useState([] as IMessage[]);
 
@@ -96,7 +97,7 @@ export const MessagesContainer = withClientConfig(props => {
   useEffect(() => {
     runUpdater(
       () => updateMessagesState(messages, Gondul, Credentials, setMessages),
-      1000
+      updateFrequency
     );
     hasFetchedMsgs = true;
 
