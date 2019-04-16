@@ -7,7 +7,7 @@ steps:
     environment:
       NODE_ENV: production
     commands:
-      - yarn
+      - yarn --production=false
       - yarn build
 
   - name: publish
