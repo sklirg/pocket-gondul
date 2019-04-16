@@ -108,9 +108,11 @@ export const MessagesContainer = withClientConfig(props => {
     <Messages
       messages={messages}
       chatUsername={props.ChatUsername}
-      postMessageHandler={(message: IMessage) =>
-        postMessage(Gondul, Credentials, message)
-      }
+      postMessageHandler={(message: IMessage) => {
+        const resp = postMessage(Gondul, Credentials, message);
+        setMessages([message, ...messages]);
+        return resp;
+      }}
     />
   );
 });
