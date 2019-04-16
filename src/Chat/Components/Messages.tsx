@@ -121,6 +121,7 @@ export const MessagesContainer = withClientConfig(props => {
 
 function runUpdater(f: any, updateFrequency: number) {
   f();
+  window.clearTimeout(chatSubscription);
   chatSubscription = window.setTimeout(
     () => runUpdater(f, updateFrequency),
     updateFrequency

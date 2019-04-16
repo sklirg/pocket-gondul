@@ -75,7 +75,9 @@ function AppConfig(props: IAppConfig) {
   );
   const [chatUsername, setChatUsername] = useState(clientConfig.ChatUsername);
   const [reallyDelete, setReallyDelete] = useState(false);
-  const [updateFrequency, setUpdateFrequency] = useState(1000);
+  const [updateFrequency, setUpdateFrequency] = useState(
+    clientConfig.UpdateFrequency
+  );
 
   const hasVersionInfo =
     process.env.DRONE_COMMIT_LINK &&
