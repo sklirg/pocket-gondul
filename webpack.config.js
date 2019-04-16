@@ -90,6 +90,11 @@ module.exports = {
                 'GONDUL_USER': JSON.stringify(process.env.GONDUL_USER),
                 'GONDUL_PASS': JSON.stringify(process.env.GONDUL_PASS),
                 'PG_USE_MOCKED_MESSAGES': JSON.stringify(process.env.PG_USE_MOCKED_MESSAGES),
+
+                // Set in build pipeline
+                'DRONE_COMMIT_SHA': JSON.stringify(process.env.DRONE_COMMIT_SHA),
+                'DRONE_COMMIT_LINK': JSON.stringify(process.env.DRONE_COMMIT_LINK),
+                'DRONE_COMMIT_MESSAGE': JSON.stringify(process.env.DRONE_COMMIT_MESSAGE),
             }
         }),
         new HtmlWebpackPlugin({

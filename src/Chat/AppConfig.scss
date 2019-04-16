@@ -7,7 +7,7 @@
   max-width: 32rem;
   margin-right: auto;
 
-  > div {
+  > div:not(.appconfig--version-info) {
     display: flex;
     margin-bottom: 0.5rem;
     height: 2rem;

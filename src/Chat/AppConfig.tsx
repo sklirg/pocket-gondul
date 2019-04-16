@@ -77,6 +77,11 @@ function AppConfig(props: IAppConfig) {
   const [reallyDelete, setReallyDelete] = useState(false);
   const [updateFrequency, setUpdateFrequency] = useState(1000);
 
+  const hasVersionInfo =
+    process.env.DRONE_COMMIT_LINK &&
+    process.env.DRONE_COMMIT_MESSAGE &&
+    process.env.DRONE_COMMIT_SHA;
+
   return (
     <form
       className="appconfig"
@@ -153,6 +158,18 @@ function AppConfig(props: IAppConfig) {
         </button>
         <button type="submit">Lagre</button>
       </div>
+      {hasVersionInfo && (
+        <div className="appconfig--version-info">
+          <h4>Version info</h4>
+          <p>
+            <a href={process.env.DRONE_COMMIT_LINK}>
+              {process.env.DRONE_COMMIT_SHA !== undefined &&
+                process.env.DRONE_COMMIT_SHA.substr(0, 7)}
+            </a>
+            : <em>{process.env.DRONE_COMMIT_MESSAGE}</em>
+          </p>
+        </div>
+      )}
     </form>
   );
 }
