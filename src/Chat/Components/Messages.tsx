@@ -94,13 +94,14 @@ export const MessagesContainer = withClientConfig(props => {
   }
 
   useEffect(() => {
-    chatSubscription = window.setInterval(() => {
-      updateMessagesState(messages, Gondul, Credentials, setMessages);
-      hasFetchedMsgs = true;
-    }, 1000);
+    runUpdater(
+      () => updateMessagesState(messages, Gondul, Credentials, setMessages),
+      1000
+    );
+    hasFetchedMsgs = true;
 
     return function cleanup() {
-      window.clearInterval(chatSubscription);
+      window.clearTimeout(chatSubscription);
     };
   });
 
@@ -116,6 +117,14 @@ export const MessagesContainer = withClientConfig(props => {
     />
   );
 });
+
+function runUpdater(f: any, updateFrequency: number) {
+  f();
+  chatSubscription = window.setTimeout(
+    () => runUpdater(f, updateFrequency),
+    updateFrequency
+  );
+}
 
 async function updateMessagesState(
   messages: IMessage[],
